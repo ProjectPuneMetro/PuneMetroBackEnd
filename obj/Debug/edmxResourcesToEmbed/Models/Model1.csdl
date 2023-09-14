@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PuneMetroV1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BookedSeat">
+    <Key>
+      <PropertyRef Name="booking_id" />
+    </Key>
+    <Property Name="booking_id" Type="Int32" Nullable="false" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="seat_id" Type="Int32" Nullable="false" />
+    <Property Name="coach_id" Type="Int32" Nullable="false" />
+    <Property Name="train_id" Type="Int32" Nullable="false" />
+    <Property Name="total_amount" Type="Int32" Nullable="false" />
+    <Property Name="payment_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Coach" Relationship="Self.FK_BookedSeats_Coach" FromRole="BookedSeats" ToRole="Coach" />
+    <NavigationProperty Name="Payment" Relationship="Self.FK_BookedSeats_Payment" FromRole="BookedSeats" ToRole="Payment" />
+    <NavigationProperty Name="CancellationReqs" Relationship="Self.FK_CancellationReq_ToBooking" FromRole="BookedSeats" ToRole="CancellationReq" />
+    <NavigationProperty Name="CancelledTickets" Relationship="Self.FK_CancelledTickets_Booking" FromRole="BookedSeats" ToRole="CancelledTickets" />
+  </EntityType>
+  <EntityType Name="CancellationReq">
+    <Key>
+      <PropertyRef Name="cancellationReq_id" />
+    </Key>
+    <Property Name="cancellationReq_id" Type="Int32" Nullable="false" />
+    <Property Name="booking_id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BookedSeat" Relationship="Self.FK_CancellationReq_ToBooking" FromRole="CancellationReq" ToRole="BookedSeats" />
+    <NavigationProperty Name="CancelledTickets" Relationship="Self.FK_CancelledTickets_Can" FromRole="CancellationReq" ToRole="CancelledTickets" />
+  </EntityType>
+  <EntityType Name="CancelledTicket">
+    <Key>
+      <PropertyRef Name="cancellation_id" />
+    </Key>
+    <Property Name="cancellation_id" Type="Int32" Nullable="false" />
+    <Property Name="cancellationReq_id" Type="Int32" Nullable="false" />
+    <Property Name="booking_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BookedSeat" Relationship="Self.FK_CancelledTickets_Booking" FromRole="CancelledTickets" ToRole="BookedSeats" />
+    <NavigationProperty Name="CancellationReq" Relationship="Self.FK_CancelledTickets_Can" FromRole="CancelledTickets" ToRole="CancellationReq" />
+  </EntityType>
+  <EntityType Name="Coach">
+    <Key>
+      <PropertyRef Name="coach_Id" />
+    </Key>
+    <Property Name="coach_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="train_id" Type="Int32" Nullable="false" />
+    <Property Name="coach_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BookedSeats" Relationship="Self.FK_BookedSeats_Coach" FromRole="Coach" ToRole="BookedSeats" />
+    <NavigationProperty Name="Train" Relationship="Self.FK_Coach_ToTrain" FromRole="Coach" ToRole="Train" />
+    <NavigationProperty Name="Seats" Relationship="Self.FK_Seats_ToTable" FromRole="Coach" ToRole="Seats" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="payment_id" />
+    </Key>
+    <Property Name="payment_id" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BookedSeats" Relationship="Self.FK_BookedSeats_Payment" FromRole="Payment" ToRole="BookedSeats" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Payment_ToTable" FromRole="Payment" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Seat">
+    <Key>
+      <PropertyRef Name="seat_id" />
+    </Key>
+    <Property Name="seat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="coach_id" Type="Int32" Nullable="false" />
+    <Property Name="availability" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="seat_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Coach" Relationship="Self.FK_Seats_ToTable" FromRole="Seats" ToRole="Coach" />
+  </EntityType>
+  <EntityType Name="Train">
+    <Key>
+      <PropertyRef Name="train_id" />
+    </Key>
+    <Property Name="train_id" Type="Int32" Nullable="false" />
+    <Property Name="train_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="source_station" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="destination_station" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="arrival_time" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="departure_time" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="price" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Coaches" Relationship="Self.FK_Coach_ToTrain" FromRole="Train" ToRole="Coach" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="user_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contact_number" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_ToTable" FromRole="User" ToRole="Payment" />
+  </EntityType>
+  <Association Name="FK_BookedSeats_Coach">
+    <End Role="Coach" Type="Self.Coach" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BookedSeats" Type="Self.BookedSeat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Coach">
+        <PropertyRef Name="coach_Id" />
+      </Principal>
+      <Dependent Role="BookedSeats">
+        <PropertyRef Name="coach_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookedSeats_Payment">
+    <End Role="Payment" Type="Self.Payment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BookedSeats" Type="Self.BookedSeat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payment">
+        <PropertyRef Name="payment_id" />
+      </Principal>
+      <Dependent Role="BookedSeats">
+        <PropertyRef Name="payment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CancellationReq_ToBooking">
+    <End Role="BookedSeats" Type="Self.BookedSeat" Multiplicity="1" />
+    <End Role="CancellationReq" Type="Self.CancellationReq" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookedSeats">
+        <PropertyRef Name="booking_id" />
+      </Principal>
+      <Dependent Role="CancellationReq">
+        <PropertyRef Name="booking_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CancelledTickets_Booking">
+    <End Role="BookedSeats" Type="Self.BookedSeat" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CancelledTickets" Type="Self.CancelledTicket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookedSeats">
+        <PropertyRef Name="booking_id" />
+      </Principal>
+      <Dependent Role="CancelledTickets">
+        <PropertyRef Name="booking_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CancelledTickets_Can">
+    <End Role="CancellationReq" Type="Self.CancellationReq" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CancelledTickets" Type="Self.CancelledTicket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CancellationReq">
+        <PropertyRef Name="cancellationReq_id" />
+      </Principal>
+      <Dependent Role="CancelledTickets">
+        <PropertyRef Name="cancellationReq_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Coach_ToTrain">
+    <End Role="Train" Type="Self.Train" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Coach" Type="Self.Coach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Train">
+        <PropertyRef Name="train_id" />
+      </Principal>
+      <Dependent Role="Coach">
+        <PropertyRef Name="train_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seats_ToTable">
+    <End Role="Coach" Type="Self.Coach" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Seats" Type="Self.Seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Coach">
+        <PropertyRef Name="coach_Id" />
+      </Principal>
+      <Dependent Role="Seats">
+        <PropertyRef Name="coach_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_ToTable">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PuneMetroV1Entities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BookedSeats" EntityType="Self.BookedSeat" />
+    <EntitySet Name="CancellationReqs" EntityType="Self.CancellationReq" />
+    <EntitySet Name="CancelledTickets" EntityType="Self.CancelledTicket" />
+    <EntitySet Name="Coaches" EntityType="Self.Coach" />
+    <EntitySet Name="Payments" EntityType="Self.Payment" />
+    <EntitySet Name="Seats" EntityType="Self.Seat" />
+    <EntitySet Name="Trains" EntityType="Self.Train" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_BookedSeats_Coach" Association="Self.FK_BookedSeats_Coach">
+      <End Role="Coach" EntitySet="Coaches" />
+      <End Role="BookedSeats" EntitySet="BookedSeats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookedSeats_Payment" Association="Self.FK_BookedSeats_Payment">
+      <End Role="Payment" EntitySet="Payments" />
+      <End Role="BookedSeats" EntitySet="BookedSeats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CancellationReq_ToBooking" Association="Self.FK_CancellationReq_ToBooking">
+      <End Role="BookedSeats" EntitySet="BookedSeats" />
+      <End Role="CancellationReq" EntitySet="CancellationReqs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CancelledTickets_Booking" Association="Self.FK_CancelledTickets_Booking">
+      <End Role="BookedSeats" EntitySet="BookedSeats" />
+      <End Role="CancelledTickets" EntitySet="CancelledTickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CancelledTickets_Can" Association="Self.FK_CancelledTickets_Can">
+      <End Role="CancellationReq" EntitySet="CancellationReqs" />
+      <End Role="CancelledTickets" EntitySet="CancelledTickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Coach_ToTrain" Association="Self.FK_Coach_ToTrain">
+      <End Role="Train" EntitySet="Trains" />
+      <End Role="Coach" EntitySet="Coaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seats_ToTable" Association="Self.FK_Seats_ToTable">
+      <End Role="Coach" EntitySet="Coaches" />
+      <End Role="Seats" EntitySet="Seats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_ToTable" Association="Self.FK_Payment_ToTable">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

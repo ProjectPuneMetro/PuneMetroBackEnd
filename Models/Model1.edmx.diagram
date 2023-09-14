@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="823faa49448f4869b2f36855e3ad8324" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="PuneMetroV1Model.BookedSeat" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PuneMetroV1Model.CancellationReq" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PuneMetroV1Model.CancelledTicket" Width="1.5" PointX="9.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PuneMetroV1Model.Coach" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PuneMetroV1Model.Payment" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PuneMetroV1Model.Seat" Width="1.5" PointX="3.125" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PuneMetroV1Model.Train" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PuneMetroV1Model.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="PuneMetroV1Model.FK_BookedSeats_Coach" ManuallyRouted="false" />
+        <AssociationConnector Association="PuneMetroV1Model.FK_BookedSeats_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="PuneMetroV1Model.FK_CancellationReq_ToBooking" ManuallyRouted="false" />
+        <AssociationConnector Association="PuneMetroV1Model.FK_CancelledTickets_Booking" ManuallyRouted="false" />
+        <AssociationConnector Association="PuneMetroV1Model.FK_CancelledTickets_Can" ManuallyRouted="false" />
+        <AssociationConnector Association="PuneMetroV1Model.FK_Coach_ToTrain" ManuallyRouted="false" />
+        <AssociationConnector Association="PuneMetroV1Model.FK_Seats_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="PuneMetroV1Model.FK_Payment_ToTable" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

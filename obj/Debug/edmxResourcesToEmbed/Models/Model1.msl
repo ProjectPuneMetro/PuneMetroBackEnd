@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PuneMetroV1ModelStoreContainer" CdmEntityContainer="PuneMetroV1Entities2">
+    <EntitySetMapping Name="BookedSeats">
+      <EntityTypeMapping TypeName="PuneMetroV1Model.BookedSeat">
+        <MappingFragment StoreEntitySet="BookedSeats">
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="seat_id" ColumnName="seat_id" />
+          <ScalarProperty Name="coach_id" ColumnName="coach_id" />
+          <ScalarProperty Name="train_id" ColumnName="train_id" />
+          <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+          <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CancellationReqs">
+      <EntityTypeMapping TypeName="PuneMetroV1Model.CancellationReq">
+        <MappingFragment StoreEntitySet="CancellationReq">
+          <ScalarProperty Name="cancellationReq_id" ColumnName="cancellationReq_id" />
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CancelledTickets">
+      <EntityTypeMapping TypeName="PuneMetroV1Model.CancelledTicket">
+        <MappingFragment StoreEntitySet="CancelledTickets">
+          <ScalarProperty Name="cancellation_id" ColumnName="cancellation_id" />
+          <ScalarProperty Name="cancellationReq_id" ColumnName="cancellationReq_id" />
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Coaches">
+      <EntityTypeMapping TypeName="PuneMetroV1Model.Coach">
+        <MappingFragment StoreEntitySet="Coach">
+          <ScalarProperty Name="coach_Id" ColumnName="coach_Id" />
+          <ScalarProperty Name="train_id" ColumnName="train_id" />
+          <ScalarProperty Name="coach_name" ColumnName="coach_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="PuneMetroV1Model.Payment">
+        <MappingFragment StoreEntitySet="Payment">
+          <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Seats">
+      <EntityTypeMapping TypeName="PuneMetroV1Model.Seat">
+        <MappingFragment StoreEntitySet="Seats">
+          <ScalarProperty Name="seat_id" ColumnName="seat_id" />
+          <ScalarProperty Name="coach_id" ColumnName="coach_id" />
+          <ScalarProperty Name="availability" ColumnName="availability" />
+          <ScalarProperty Name="seat_number" ColumnName="seat_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trains">
+      <EntityTypeMapping TypeName="PuneMetroV1Model.Train">
+        <MappingFragment StoreEntitySet="Train">
+          <ScalarProperty Name="train_id" ColumnName="train_id" />
+          <ScalarProperty Name="train_name" ColumnName="train_name" />
+          <ScalarProperty Name="source_station" ColumnName="source_station" />
+          <ScalarProperty Name="destination_station" ColumnName="destination_station" />
+          <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
+          <ScalarProperty Name="departure_time" ColumnName="departure_time" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="PuneMetroV1Model.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="user_email" ColumnName="user_email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="contact_number" ColumnName="contact_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
